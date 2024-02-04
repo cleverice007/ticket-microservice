@@ -1,0 +1,13 @@
+apiVersion: skaffold/v4beta9
+kind: Config
+metadata:
+  name: auth
+build:
+  artifacts:
+    - image: masonyen/auth
+      docker:
+        dockerfile: Dockerfile
+manifests:
+  rawYaml:
+    - auth-depl.yaml
+    - ingress-srv.yaml
