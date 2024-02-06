@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: masonyen/auth
+          image: us.gcr.io/ticket-microservice/auth
 ---
 apiVersion: v1
 kind: Service
