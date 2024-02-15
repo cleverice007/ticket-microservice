@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
         - name: auth
-          image: rallycoding/auth
-          env:
+          image: us.gcr.io/ticket-microservice/auth
+          env:   
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
