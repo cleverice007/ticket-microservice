@@ -23,5 +23,10 @@
     "typescript": "^5.3.3",
     "util": "^0.12.5"
   },
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/supertest": "^6.0.2",
+    "mongodb-memory-server": "^9.1.6"
+  }
 }
