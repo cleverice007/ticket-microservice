@@ -56,3 +56,8 @@ router.post(
 );
 
 export { router as signinRouter };
+
+// npm run pub
+// npm update @ticket-microservice/common
+// docker build -t ticketing/tickets.
+// docker push -t ticketing/tickets.
