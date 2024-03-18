@@ -36,3 +36,7 @@ export { app };
 // docker push
 // fix skaffold.yaml
 // kubectl get pods
+// kubectl port forward
+// localhost:8222/streaming (nats monitoring)
+// npm run pub
+// cd tickets npm update @ticket-microservice/common
