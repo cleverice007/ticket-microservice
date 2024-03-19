@@ -23,3 +23,11 @@ __exportStar(require("./middlewares/current-user"), exports);
 __exportStar(require("./middlewares/error-handler"), exports);
 __exportStar(require("./middlewares/require-auth"), exports);
 __exportStar(require("./middlewares/validate-request"), exports);
+
+
+// npm run pub
+// tickets  -> npm update @ticket-microservice/common
+// npm run test
+//294 cretae nats test
+
+//295 kubectl port-forward nats-depl-5d7d7d7d7d-5d7d7 4222:4222
