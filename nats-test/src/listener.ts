@@ -5,7 +5,7 @@ import { TicketCreatedListener } from './events/ticket-created-listener';
 console.clear();
 
 const stan = nats.connect('ticketing', randomBytes(4).toString('hex'), {
-  url: 'http://localhost:4222',
+  url: 'nats://localhost:4222',
 });
 
 stan.on('connect', () => {
