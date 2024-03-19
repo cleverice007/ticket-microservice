@@ -16,6 +16,14 @@ spec:
         - name: tickets
           image: us.gcr.io/ticket-microservice/tickets
           env:
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_URL
+              value: 'http://nats-srv:4222'
+            - name: NATS_CLUSTER_ID
+              value: ticketing
             - name: MONGO_URI
               value: 'mongodb+srv://cleverice90128:cleverice007@cluster0.ckooh1c.mongodb.net/ticket-microservice?retryWrites=true&w=majority'
             - name: JWT_KEY
