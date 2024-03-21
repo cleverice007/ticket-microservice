@@ -4,7 +4,7 @@ import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError, currentUser } from '@ticket-microservice/common';
 import { indexOrderRouter } from './routes/index';
-
+import { showOrderRouter } from './routes/show';
 
 const app = express();
 app.set('trust proxy', true);
@@ -19,7 +19,7 @@ app.use(currentUser);
 
 app.use(indexOrderRouter);
 
-
+app.use(showOrderRouter);
 
 app.all('*', async (req, res) => {
   throw new NotFoundError();
