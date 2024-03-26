@@ -6,6 +6,7 @@ import { errorHandler, NotFoundError, currentUser } from '@ticket-microservice/c
 import { indexOrderRouter } from './routes/index';
 import { showOrderRouter } from './routes/show';
 import { newOrderRouter } from './routes/new';
+import { deleteOrderRouter } from './routes/delete';
 
 const app = express();
 app.set('trust proxy', true);
@@ -21,6 +22,7 @@ app.use(currentUser);
 app.use(indexOrderRouter);
 app.use(newOrderRouter);
 app.use(showOrderRouter);
+app.use(deleteOrderRouter);
 
 app.all('*', async (req, res) => {
   throw new NotFoundError();
