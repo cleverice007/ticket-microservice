@@ -12,7 +12,7 @@ export default ({ req }) => {
   } else {
     //  browser
     return axios.create({
-      baseUrl: '/',
+      baseURL: '/',
     });
   }
 };
