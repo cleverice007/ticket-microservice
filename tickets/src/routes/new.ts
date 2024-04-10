@@ -37,3 +37,11 @@ router.post(
 );
 
 export { router as createTicketRouter };
+
+
+// expiration
+// docker build
+// docker push
+// kubectl create secret generic stripe-secret --from-literal=STRIPE_KEY=sk_test_51P3BWrP0K55rGD6Mqo68s9J0oAUy0e91BH4MqYbQ8JCcwAn2H7b7Ow3MMKPX1mxpHhXYrvyqTrDhSDTID6SeiFNV00cpekbT3n
+// kubectl get secrets
+//thisisunsafe
