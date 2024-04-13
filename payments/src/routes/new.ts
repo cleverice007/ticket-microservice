@@ -10,7 +10,7 @@ import {
 } from '@ticket-microservice/common';
 import { stripe } from '../stripe';
 import { Order } from '../models/order';
-import { Payment } from '../models/payment';
+import { Payment } from '../models/payments';
 import { PaymentCreatedPublisher } from '../events/publishers/payment-created-publisher';
 import { natsWrapper } from '../nats-wrapper';
 
