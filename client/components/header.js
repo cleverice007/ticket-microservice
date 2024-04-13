@@ -4,28 +4,31 @@ export default ({ currentUser }) => {
   const links = [
     !currentUser && { label: 'Sign Up', href: '/auth/signup' },
     !currentUser && { label: 'Sign In', href: '/auth/signin' },
+    currentUser && { label: 'Sell Tickets', href: '/tickets/new' },
+    currentUser && { label: 'My Orders', href: '/orders' },
     currentUser && { label: 'Sign Out', href: '/auth/signout' },
   ]
-    .filter(linkConfig => linkConfig)
+    .filter((linkConfig) => linkConfig)
     .map(({ label, href }) => {
       return (
-        <li key={href} className="list-none mr-6">
-          <Link href={href}>
-            <a className="text-blue-500 hover:text-blue-800">{label}</a>
+        <li key={href} className="nav-item">
+          <Link className="nav-link" href={href}>
+            {label}
           </Link>
         </li>
       );
     });
 
   return (
-    <nav className="bg-gray-100 p-5">
-      <div className="container mx-auto flex justify-between items-center">
-        <Link href="/">
-          <a className="text-xl font-semibold text-gray-900 hover:text-gray-600">GitTix</a>
-        </Link>
+    <nav className="navbar navbar-light bg-light">
+      <Link className="navbar-brand" href="/">
+        GitTix
+      </Link>
 
-        <ul className="flex justify-end items-center space-x-4">{links}</ul>
+      <div className="d-flex justify-content-end">
+        <ul className="nav d-flex align-items-center">{links}</ul>
       </div>
     </nav>
   );
 };
+
