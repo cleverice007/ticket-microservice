@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: us.gcr.io/ticket-microservice/ticketing-client
+          image:  masonyen//ticketing-client
 ---
 apiVersion: v1
 kind: Service
