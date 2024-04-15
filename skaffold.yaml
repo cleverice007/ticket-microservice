@@ -8,7 +8,7 @@ build:
   googleCloudBuild:
     projectId: ticket-microservice
   artifacts:
-    - image: us.gcr.io/ticket-microservice/auth
+    - image:  masonyen//auth
       context: auth
       docker:
         dockerfile: Dockerfile
@@ -16,7 +16,7 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: us.gcr.io/ticket-microservice/ticketing-client
+    - image:  masonyen//ticketing-client
       context: client
       docker:
         dockerfile: Dockerfile
@@ -24,7 +24,7 @@ build:
         manual:
           - src: '**/*.js'
             dest: .
-    - image: us.gcr.io/ticket-microservice/tickets
+    - image:  masonyen//tickets
       context: tickets
       docker:
         dockerfile: Dockerfile
@@ -40,7 +40,7 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image : us.gcr.io/ticket-microservice/payments
+    - image :  masonyen//payments
       context: payments
       docker:
         dockerfile: Dockerfile

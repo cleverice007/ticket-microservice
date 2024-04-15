@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: us.gcr.io/ticket-microservice/auth
+          image: masonyen/auth
           env:   
             - name: MONGO_URI
               value: 'mongodb+srv://cleverice90128:cleverice007@cluster0.ckooh1c.mongodb.net/ticket-microservice?retryWrites=true&w=majority'

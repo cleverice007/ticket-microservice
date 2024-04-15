@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: expiration
-          image: us.gcr.io/ticket-microservice/expiration
+          image:  masonyen//expiration
           env:
             - name: NATS_CLIENT_ID
               valueFrom:
