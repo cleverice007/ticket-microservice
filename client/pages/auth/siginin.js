@@ -20,6 +20,8 @@ export default () => {
 
     await doRequest();
   };
+  console.log('docker test ');
+
 
 return (
     <form onSubmit={onSubmit} className="space-y-4">
