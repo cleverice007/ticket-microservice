@@ -26,6 +26,8 @@ const start = async () => {
     process.on('SIGTERM', () => natsWrapper.client.close());
 
     new OrderCreatedListener(natsWrapper.client).listen();
+    console.log('docker test ');
+
   } catch (err) {
     console.error(err);
   }
