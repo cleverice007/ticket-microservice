@@ -5,14 +5,13 @@ export default ({ req }) => {
     // server
 
     return axios.create({
-      baseURL:
-        'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local',
+      baseURL: 'http:///www.ticket-microservice.site/',
       headers: req.headers,
     });
   } else {
     //  browser
     return axios.create({
-      baseURL: 'http:///www.ticket-microservice.site/'
+      baseUrl: '/',
     });
   }
 };
