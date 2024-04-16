@@ -5,8 +5,8 @@ deploy:
     manifests:
       - ./infra/k8s/*
 build:
-  googleCloudBuild:
-    projectId: ticket-microservice
+  local:
+    push: false
   artifacts:
     - image:  masonyen//auth
       context: auth
