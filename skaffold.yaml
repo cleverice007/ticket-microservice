@@ -8,7 +8,7 @@ build:
   local:
     push: false
   artifacts:
-    - image:  masonyen//auth
+    - image: masonyen/auth
       context: auth
       docker:
         dockerfile: Dockerfile
@@ -16,7 +16,7 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image:  masonyen//ticketing-client
+    - image: masonyen/client
       context: client
       docker:
         dockerfile: Dockerfile
@@ -24,7 +24,7 @@ build:
         manual:
           - src: '**/*.js'
             dest: .
-    - image:  masonyen//tickets
+    - image: masonyen/tickets
       context: tickets
       docker:
         dockerfile: Dockerfile
@@ -32,7 +32,7 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: us.gcr.io/expiration
+    - image: masonyen/expiration
       context: expiration
       docker:
         dockerfile: Dockerfile
@@ -40,7 +40,7 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image :  masonyen//payments
+    - image : masonyen/payments
       context: payments
       docker:
         dockerfile: Dockerfile
