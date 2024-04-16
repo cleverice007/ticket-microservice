@@ -20,7 +20,6 @@ export default () => {
 
     await doRequest();
   };
-  console.log('docker test ');
 
 
 return (
