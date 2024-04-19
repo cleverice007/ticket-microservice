@@ -17,7 +17,7 @@ spec:
           image: masonyen/auth
           env:   
             - name: MONGO_URI
-              value: 'mongodb+srv://cleverice90128:cleverice007@cluster0.ckooh1c.mongodb.net/ticket-microservice?retryWrites=true&w=majority'
+              value: 'mongodb://auth-mongo-srv:27017/auth'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
