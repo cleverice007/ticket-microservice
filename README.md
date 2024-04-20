@@ -11,12 +11,58 @@
 - **數據庫**: MongoDB
 - **支付服務**: Stripe
 - **Container**: Docker, Kubernetes
+- **Communication**: Nats-Streaming
+- **訂單過期處理(Worker Service)**: Redis
+
+## Project Structure
+專案根據不同的功能劃分成多個資料夾：
+- `auth`：處理登入相關功能。
+- `ticket`：票務相關功能。
+- `order`：訂單管理功能。
+- `payment`：支付處理功能。
+- `client`：前端界面。
+- `infra`：包含所有 Kubernetes 配置文件。
 
 ### 安裝步驟
 
 ```
 git clone https://github.com/cleverice007/ticket-microservice.git
 ```
+```
+cd ticket-microservice
+'''
+```
+skaffold dev
+'''
+
+修改 hosts 文件,將 ticketing.dev 指向本地地址
+Windows
+```
+C:\Windows\System32\drivers\etc\hosts。
+```
+MacOS or Linux
+```
+sudo nano /etc/hosts
+```
+添加以下行
+```
+127.0.0.1       ticketing.dev
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
