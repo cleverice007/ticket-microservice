@@ -30,10 +30,10 @@ git clone https://github.com/cleverice007/ticket-microservice.git
 ```
 ```
 cd ticket-microservice
-'''
+```
 ```
 skaffold dev
-'''
+```
 
 修改 hosts 文件,將 ticketing.dev 指向本地地址
 Windows
