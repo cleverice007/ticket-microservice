@@ -5,11 +5,13 @@ import useRequest from '../../hooks/use-request';
 
 const OrderShow = ({ order, currentUser }) => {
   const [timeLeft, setTimeLeft] = useState(0);
+  const [stripeToken, setStripeToken] = useState(null);
   const { doRequest, errors } = useRequest({
     url: '/api/payments',
     method: 'post',
     body: {
       orderId: order.id,
+      token: stripeToken, 
     },
     onSuccess: () => Router.push('/orders'),
   });
@@ -27,6 +29,12 @@ const OrderShow = ({ order, currentUser }) => {
       clearInterval(timerId);
     };
   }, [order]);
+  useEffect(() => {
+    // when the stripeToken is set, call doRequest
+    if (stripeToken) {
+      doRequest();
+    }
+  }, [stripeToken]);
 
   if (timeLeft < 0) {
     return <div>Order Expired</div>;
@@ -36,7 +44,10 @@ const OrderShow = ({ order, currentUser }) => {
     <div>
       Time left to pay: {timeLeft} seconds
       <StripeCheckout
-        token={({ id }) => doRequest({ token: id })}
+        token={({ id }) => {
+          console.log('Received Stripe token:', id);
+          setStripeToken(id); // set the stripeToken
+        }}
         stripeKey="pk_test_51P3BWrP0K55rGD6M36m0p4438BbOLHLSwT8MoccuJLFXzkzVumnN79aLYEiDG6AxsIafBqSnIH8yAMRfhWaQoRmw00qnXzCOFO"
         amount={order.ticket.price * 100}
         email={currentUser.email}
@@ -45,6 +56,7 @@ const OrderShow = ({ order, currentUser }) => {
     </div>
   );
 };
+
 
 OrderShow.getInitialProps = async (context, client) => {
   const { orderId } = context.query;

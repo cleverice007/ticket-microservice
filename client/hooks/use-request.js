@@ -6,6 +6,7 @@ export default ({ url, method, body, onSuccess }) => {
 
   const doRequest = async () => {
     try {
+      console.log('doRequest',body)
       setErrors(null);
       const response = await axios[method](url, body);
 

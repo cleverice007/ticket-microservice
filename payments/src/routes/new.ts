@@ -19,10 +19,13 @@ const router = express.Router();
 router.post(
   '/api/payments',
   requireAuth,
-  [body('token').not().isEmpty(), body('orderId').not().isEmpty()],
+  //[body('token').not().isEmpty(), body('orderId').not().isEmpty()],
   validateRequest,
   async (req: Request, res: Response) => {
     const { token, orderId } = req.body;
+    console.log('Received token:', token); // 檢查接收到的 token
+    console.log('Received orderId:', orderId); // 檢查接收到的 orderId
+
 
     const order = await Order.findById(orderId);
 
