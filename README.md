@@ -48,11 +48,12 @@ sudo nano /etc/hosts
 ```
 127.0.0.1       ticketing.dev
 ```
+Application 網址
+```
+https://ticketing.dev/
+```
 
-
-
-
-
+### 功能說明
 
 
 
