@@ -22,6 +22,9 @@
 - `payment`：支付功能。
 - `client`：前端界面。
 - `infra`：包含所有 Kubernetes 配置文件。
+- `common`：包含跨微服務共用的程式碼，如event、errors、middlewares。
+
+每個Service都是獨立部署的，並通過Event-driven的方式互相溝通，確保服務之間的松耦合。
 
 ### 安裝步驟
 
@@ -55,7 +58,12 @@ https://ticketing.dev/
 
 ### 功能說明
 
+### 通用資料夾 `common`
 
+`common` 資料夾包含多個微服務都會使用到的共用邏輯：
+- **Events**：定義了跨服務事件的結構和類型，如order-created或ticket-updated event。
+- **Errors**：定義error type，以統一error handling。
+- **Middlewares**：requireAuth,currentUser,validateRequest,errorHandler
 
 
 
