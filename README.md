@@ -14,6 +14,9 @@
 
 ### 安裝步驟
 
+```
+git clone https://github.com/cleverice007/ticket-microservice.git
+```
 
 
 
