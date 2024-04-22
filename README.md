@@ -74,7 +74,28 @@ https://ticketing.dev/
   - `validateRequest`：結合`express-validator`來驗證和清理請求數據，保證後續處理的數據正確性。
   - `errorHandler`：捕獲middleware& route拋出的錯誤，並將它們轉換為一致的response格式回傳給client。 
 
+### Auth Folder Structure
 
+`auth` 資料夾是microservice中負責處理身份驗證相關功能。此資料夾結構確保用戶管理流程如註冊、登入、登出和身份驗證。以下是該資料夾的說明：
+
+- **Dockerfile 和 Kubernetes 配置**：
+  - `Dockerfile`：定義了用於建立 auth 服務container的所有步驟。
+  - Kubernetes depl file: 使用k8s Deployment` 和 `Service` 服務將 auth 部署並提供網絡訪問。
+
+- **Routes**：
+  - `signin`：處理用戶登入，驗證用戶並發送含有 JWT 的 session。
+  - `signout`：清除用戶 session，實現登出功能。
+  - `signup`：允許新用戶註冊並在數據庫中儲存加密後的密碼。
+  - `currentUser`：檢查用戶是否已登入並回傳當前用戶資訊。
+
+- **Models**：
+  - `User`：定義用戶模型，包括email & password，並使用 Mongoose 與 MongoDB 交互。
+
+- **Services**：
+  - `Password`：提供 toHash 和 compare 函數，用於密碼的加密和驗證。
+
+- **Tests**：
+  - 對所有路由進行單元測試，確保每個功能按預期運作，使用 Jest 和 Supertest 框架進行測試。
 
 
 
