@@ -58,12 +58,23 @@ https://ticketing.dev/
 
 ### 功能說明
 
-### 通用資料夾 `common`
+### Common Folder Structure
 
-`common` 資料夾包含多個微服務都會使用到的共用邏輯：
-- **Events**：定義了跨服務事件的結構和類型，如order-created或ticket-updated event。
-- **Errors**：定義error type，以統一error handling。
-- **Middlewares**：requireAuth,currentUser,validateRequest,errorHandler
+`common` 資料夾包含了多個微服務共用的邏輯和組件，這有助於保持代碼的DRY原則（不重複自己）並且提高了代碼的可維護性。以下是包含在此資料夾中的主要元件：
+
+- **Events**：
+-   `Event`：定義了NATS Streaming用於事件發布和訂閱的接口，確保事件處理的類型安全和一致性,ex: order-created,ticket-updated,payment-created
+  - `Publisher`和`Listener`：這些接口和抽象類定義了事件發布者和監聽者的基本結構，使得事件驅動的架構更加模塊化和易於管理。
+
+- **Errors**：自行定義的error type，例如，bad-request-error,not-found-error, request-validation-error
+
+- **Middlewares**：
+  - `requireAuth`：這個中間件檢查請求是否包含有效的JWT。如果不包含，將阻止請求繼續處理。
+  - `currentUser`：解析request中的JWT，將userpayload附加到req上，以便後續使用。
+  - `validateRequest`：結合`express-validator`來驗證和清理請求數據，保證後續處理的數據正確性。
+  - `errorHandler`：捕獲middleware& route拋出的錯誤，並將它們轉換為一致的response格式回傳給client。 
+
+
 
 
 
