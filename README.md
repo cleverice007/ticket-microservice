@@ -80,7 +80,9 @@ https://ticketing.dev/
 
 - **Dockerfile 和 Kubernetes 配置**：
   - `Dockerfile`：定義了用於建立 auth 服務container的所有步驟。
-  - Kubernetes depl file: 使用k8s Deployment` 和 `Service` 服務將 auth 部署並提供網絡訪問。
+  -`auth-depl.yaml`: 使用k8s Deployment` 和 `Service` 服務將 auth 部署並提供網絡訪問。
+  -`auth-mongo-depl.yaml`: 部署mongodb instance
+
 
 - **Routes**：
   - `signin`：處理用戶登入，驗證用戶並發送含有 JWT 的 session。
@@ -96,6 +98,41 @@ https://ticketing.dev/
 
 - **Tests**：
   - 對所有路由進行單元測試，確保每個功能按預期運作，使用 Jest 和 Supertest 框架進行測試。
+ 
+
+### Ticket Folder Structure
+
+`ticket` 資料夾負責管理ticket:
+
+- **Dockerfile 和 Kubernetes 配置**：
+  - `Dockerfile`：用於建構 ticket 服務的 Docker 容器。
+  - Kubernetes `depl & service：負責部署和網路訪問。
+  - MongoDB 的 Deployment 設置：用於存儲 ticket 資料。
+
+- **Routes**：
+  - `index`：展示所有ticket information。
+  - `new`：提供創建new ticket的接口。
+  - `show`：顯示單個ticket詳情。
+  - `update`：更新已存在的ticket information。
+
+- **Models**：
+  - `Ticket`：定義了與ticket相關的數據結構和與 MongoDB 的交互邏輯。
+
+- **Events**：
+  - `ticket-created` 和 `ticket-updated`：處理ticket創建和更新的事件發布。
+  - `order-created` 和 `order-cancelled`：從其他服務處理訂單創建和取消的事件。
+
+- **Services**：
+  - `queueGroupName`：用於設定 NATS Streaming 的queue name，確保消息正確分發。
+
+- **Tests**：
+  - 使用 Jest 和 Supertest 對所有功能進行單元測試。
+  - `__mocks__`：包含假的 NATS-wrapper 以便於測試中模擬事件處理。
+
+# K8s 環境變數設定說明
+請確保在 Kubernetes 集群中事先創建必要的 secrets，例如 `jwt-secret`。使用以下指令創建所需的 secret:
+
+kubectl create secret generic jwt-secret --from-literal=JWT_KEY='your-jwt-key-here'
 
 
 
