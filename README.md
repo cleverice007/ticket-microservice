@@ -117,6 +117,8 @@ https://ticketing.dev/
 
 - **Models**：
   - `Ticket`：定義了與ticket相關的數據結構和與 MongoDB 的交互邏輯。
+  - 使用 `version` 欄位來追蹤version，處理concurrency。
+  - 採用 `mongoose-update-if-current` 自動管理version，每次更新時檢查和更新 `version` 欄位，確保更新操作的原子性和一致性。
 
 - **Events**：
   - `ticket-created` 和 `ticket-updated`：處理ticket創建和更新的事件發布。
