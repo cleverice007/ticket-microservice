@@ -131,10 +131,11 @@ https://ticketing.dev/
   - 使用 Jest 和 Supertest 對所有功能進行單元測試。
   - `__mocks__`：包含假的 NATS-wrapper 以便於測試中模擬事件處理。
 
-# K8s 環境變數設定說明
-請確保在 Kubernetes 集群中事先創建必要的 secrets，例如 `jwt-secret`。使用以下指令創建所需的 secret:
-
+ **K8s 環境變數設定說明** 
+在 Kubernetes 集群中事先創建必要的 secrets，例如 `jwt-secret`。使用以下指令創建所需的 secret:
+```
 kubectl create secret generic jwt-secret --from-literal=JWT_KEY='your-jwt-key-here'
+```
 
 
 
