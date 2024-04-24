@@ -172,7 +172,86 @@ kubectl create secret generic jwt-secret --from-literal=JWT_KEY='your-jwt-key-he
 ```
 kubectl create secret generic jwt-secret --from-literal=JWT_KEY='your-jwt-key-here'
 ```
+### Expiration Service Folder Structure
 
+`expiration` 資料夾負責管理訂單的過期邏輯：
+- **Dockerfile 和 Kubernetes 配置**：
+  - `Dockerfile`：用於建構 expiration service的 Docker image。
+  - Kubernetes `expiration-depl.yaml`：用於部署 expiration 服務和引用redis image。
 
+- **主要檔案和功能**：
+  - `expiration-queue.js`：使用 `bull` 和 `Redis` 建立一個隊列來處理訂單的過期時間。
+  - 當訂單到達設定的過期時間時，會觸發一個 `expiration-complete` 事件，publish。
 
+- **Events**：
+  - `expiration-complete-publisher`：當訂單過期時發布 `expiration-complete` event。
+  - `OrderCreatedListener`：監聽來自其他服務的 `order-created` event，將新創建的訂單及其過期時間添加到 `expiration queue` 中。
 
+- **設定和測試**：
+  - 使用 `Redis` 來儲存queue data。
+  - 確保queue正確設定延時時間，並在時間到時觸發 `ExpirationComplete` 事件。
+
+### Payment Service Structure
+
+`payment` 資料夾負責處理所有與付款相關的功能。這包括處理實際的付款交易和與其他服務的事件溝通。以下是該資料夾的結構說明：
+
+- **Models**：
+  - `Payment`：儲存與付款相關的資訊，包括 `orderId` 和 `stripeId`。`orderId` 是與付款相關的訂單 ID，而 `stripeId` 是 Stripe 付款確認的唯一標識。
+
+- **Routes**：
+  - `new.ts`：這個路由處理新的付款請求。它使用 Stripe API 來處理實際的信用卡交易。
+
+- **Events**：
+  - `PaymentCreatedPublisher`：當一個新的付款在系統中被創建並成功處理後，這個 publisher 會發布付款創建事件。
+  - `OrderCreated` 和 `OrderCancelled Listener`：這些 listeners 處理來自訂單服務的事件，確保付款服務可以適當響應訂單的創建和取消。
+
+- **Kubernetes and Docker**：
+  - 使用 Docker 容器來封裝付款服務，並通過 Kubernetes 配置以確保高可用性和擴展性。
+  - 部署配置包括環境變數設定如下，以確保服務能夠正確連接到必要的外部資源（如 Stripe）。
+```
+kubectl create secret generic jwt-secret --from-literal=JWT_KEY='your-jwt-key-here'
+kubectl create secret generic stripe-secret --from-literal=STRIPE_KEY='your-stripe-key-here'
+```
+### Client Folder Structure
+
+**Next.js + React**:
+- **使用 Next.js 框架**：支持服務端渲染（SSR），提高應用性能和 SEO。
+- **React**：用於建構互動式的用戶界面組件。
+
+**Hooks**:
+- **use-request**：自定義 Hook，用於從前端向後端發送 HTTP 請求，處理請求與響應的邏輯。
+
+**API**:
+- 根據運行環境（伺服器或瀏覽器）有不同的 API URL 設置，確保 API 請求根據環境正確地指向服務器或客戶端。
+
+**Components**:
+- **Header**：顯示導航欄，包括登入、登出、註冊、銷售門票和我的訂單連結。根據用戶的登入狀態動態調整。
+
+**Pages**:
+- **auth**：包含登入和註冊相關的頁面。
+- **orders**：展示用戶的訂單信息。
+- **tickets**：用於購買和查看票務信息的頁面。
+
+### CI/CD
+使用GitHub Actions 在pull request時，觸發test&deployment
+
+**CI**
+- **執行環境**：在最新的 Ubuntu 環境下運行。
+- **Steps**：
+  - **Checkout**：從 GitHub repo 獲取code。
+  - **Setup**：進入 diretory，使用 `npm install` isntall dependency。
+  - **test**：使用 `npm run test:ci` 執行測試。
+
+**CD**
+- Trigger: The CD workflow is triggered when changes are pushed to the main branch and include modifications within the auth directory.
+- Environment: Runs on the latest Ubuntu environment.
+
+-**Steps**
+- Checkout: Retrieves the latest code from the main branch.
+- Docker Build: Constructs a Docker image.
+- Docker Login: Authenticates to Docker Hub using secrets stored in GitHub (DOCKER_USERNAME and DOCKER_PASSWORD).
+- Docker Push: Pushes the built image to Docker Hub.
+- Kubernetes Deployment:
+  Uses doctl to interact with DigitalOcean Kubernetes services.
+  Updates kubeconfig for connection.
+  Restarts the deployment to update the pods with the new Docker image.
