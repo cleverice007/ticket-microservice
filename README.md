@@ -107,7 +107,7 @@ https://ticketing.dev/
 - **Dockerfile 和 Kubernetes 配置**：
   - `Dockerfile`：用於建構 ticket 服務的 Docker 容器。
   - Kubernetes `depl & service：負責部署和網路訪問。
-  - MongoDB 的 Deployment 設置：用於存儲 ticket 資料。
+  - MongoDB 的 Deployment 設置：用於儲存 ticket 資料。
 
 - **Routes**：
   - `index`：展示所有ticket information。
@@ -137,12 +137,41 @@ https://ticketing.dev/
 kubectl create secret generic jwt-secret --from-literal=JWT_KEY='your-jwt-key-here'
 ```
 
+### Orders Folder Structure
+
+`orders` 資料夾是微服務架構中處理訂單相關功能。此資料夾結構確保訂單管理流程如創造、查詢、取消訂單。以下是該資料夾的主要說明：
+
+- **Dockerfile 和 Kubernetes 配置**：
+  - `Dockerfile`：用於建構 order 服務的 Docker 容器。
+  - Kubernetes `orders-depl.yaml`：用於部署 order 服務和設定網路訪問。
+  - MongoDB 的 Deployment 設置：用於儲存 order 資料。
 
 
+- **Routes**：
+  - `index`：列出所有訂單。
+  - `new`：創建新訂單。
+  - `show`：顯示單個訂單的詳情。
+  - `delete`：取消訂單。
 
+- **Models**：
+  - `Order`：定義了與訂單相關的數據結構，包括用戶ID、狀態、過期時間和相關的票券。
 
+- **Events**：
+  - 發布事件：`order-created`, `order-cancelled`。
+  - 監聽事件：`ticket-created`, `ticket-updated`, `expiration-completed`。
+  - 使用 NATS Streaming 來處理事件的發布和訂閱。
+  - `queueGroupName`：用於設定 NATS Streaming 的隊列名稱，確保消息正確分發。
 
+- **Tests**：
+  - 對所有路由和事件監聽功能進行單元測試。
+  - 使用 Jest 和 Supertest 框架進行測試。
+  - `__mocks__`：包含模擬的 NATS-wrapper 以方便在測試中模擬事件處理。
 
+ **K8s 環境變數設定說明** 
+在 Kubernetes 集群中事先創建必要的 secrets，例如 `jwt-secret`。使用以下指令創建所需的 secret:
+```
+kubectl create secret generic jwt-secret --from-literal=JWT_KEY='your-jwt-key-here'
+```
 
 
 
