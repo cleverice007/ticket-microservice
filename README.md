@@ -1,4 +1,7 @@
 # Ticket microservice
+![新增票](https://github.com/cleverice007/ticket-microservice/blob/main/截圖%202024-05-09%20下午2.23.23.png)
+![購買票](https://github.com/cleverice007/ticket-microservice/blob/main/截圖%202024-05-09%20下午2.23.29.png)
+![購買票](https://github.com/cleverice007/ticket-microservice/blob/main/截圖%202024-05-09%20下午2.24.23.png)
 
 ## Description
 此項目是一個full stack application，
